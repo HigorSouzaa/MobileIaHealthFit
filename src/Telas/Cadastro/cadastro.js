@@ -8,28 +8,43 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
 
-export default function Login() {
+export default function Cadastro() {
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
     BreeSerif_400Regular,
   });
 
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   if (!fontsLoaded) {
     return null; // Pode adicionar um componente de carregamento aqui se necessário
   }
 
+  const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Erro", "As senhas não coincidem!");
+      return;
+    }
+    // Continue com o processo de cadastro
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.conteiner}>
+        <View style={styles.footer}>
+          <Text style={styles.txt_footer}>Cadastro</Text>
+        </View>
         <Image
           source={require("../../../assets/imgLogoHome.png")}
-          style={{ width: 340, marginTop: 140 }}
+          style={{ width: 340, marginTop: 50 }}
           resizeMode="contain"
         />
         <View style={styles.conteinerInputs}>
@@ -44,9 +59,12 @@ export default function Login() {
               fontSize={22}
               placeholder="seu@email.com"
               placeholderTextColor={"#E6E3F6"}
+              keyboardType="email-address"
+              autoCapitalize="none"
             />
           </View>
         </View>
+
         <View style={styles.conteinerInput}>
           <Text style={styles.txtInputs}>Senha:</Text>
           <View style={styles.Inputs}>
@@ -60,6 +78,8 @@ export default function Login() {
               placeholder="**********"
               placeholderTextColor={"#E6E3F6"}
               secureTextEntry={!passwordVisible}
+              value={password}
+              onChangeText={setPassword}
             />
             <TouchableOpacity
               onPress={() => setPasswordVisible(!passwordVisible)}
@@ -76,20 +96,51 @@ export default function Login() {
             </TouchableOpacity>
           </View>
         </View>
+
+        <View style={styles.conteinerInput}>
+          <Text style={styles.txtInputs}>Repita a Senha:</Text>
+          <View style={styles.Inputs}>
+            <Image
+              source={require("../../../assets/senhaImg.png")}
+              resizeMode="contain"
+            />
+            <TextInput
+              style={styles.input2}
+              fontSize={22}
+              placeholder="**********"
+              placeholderTextColor={"#E6E3F6"}
+              secureTextEntry={!confirmPasswordVisible}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+            />
+            <TouchableOpacity
+              onPress={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+            >
+              <Image
+                source={
+                  confirmPasswordVisible
+                    ? require("../../../assets/olhoFechado.png")
+                    : require("../../../assets/olhoAberto.png")
+                }
+                resizeMode="contain"
+                style={{ width: 30 }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <View style={styles.conteiner_restaurarSenha}>
-          <Text style={styles.text_recuperarSenha}>recupera a senha </Text>
-          <TouchableOpacity>
-            <Text style={styles.highlight}>clique aqui!</Text>
+          <Text style={styles.text_recuperarSenha}>Já tem conta faça </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.highlight}>login?</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.btEntrar}>
+
+        <TouchableOpacity style={styles.btEntrar} onPress={handleSignUp}>
           <View>
-            <Text style={styles.txt_btEntrar}>Entrar</Text>
+            <Text style={styles.txt_btEntrar}>Cadastre-se</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.footer}>
-          <Text style={styles.txt_footer}>Login</Text>
-        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -102,10 +153,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   conteinerInputs: {
     width: "80%",
-    marginTop: 40,
+    marginTop: 20,
   },
   conteinerInput: {
     marginTop: 10,
@@ -146,7 +196,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 3,
     shadowRadius: 1,
   },
-
   conteiner_restaurarSenha: {
     width: "80%",
     display: "flex",
@@ -156,19 +205,16 @@ const styles = StyleSheet.create({
     marginRight: 15,
     marginTop: 8,
   },
-
   highlight: {
     color: "#A397E3",
     fontFamily: "BreeSerif_400Regular",
     fontSize: 16,
   },
-
   text_recuperarSenha: {
     color: "#CAC1F9",
     fontFamily: "BreeSerif_400Regular",
     fontSize: 16,
   },
-
   btEntrar: {
     marginTop: 50,
     backgroundColor: "#CAC1F9",
@@ -184,13 +230,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 3,
     shadowRadius: 1,
   },
-
   txt_btEntrar: {
     fontSize: 40,
     fontFamily: "BreeSerif_400Regular",
     color: "#FFFF",
   },
-
   footer: {
     display: "flex",
     alignItems: "center",
@@ -198,16 +242,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#CAC1F9",
     width: "98%",
     height: 160,
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    top: 100,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
-
   txt_footer: {
     fontSize: 60,
     fontFamily: "BreeSerif_400Regular",
     color: "#FFFF",
-    bottom: 14,
-    letterSpacing: 3
+    letterSpacing: 3,
+    top: 10,
   },
 });

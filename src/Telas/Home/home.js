@@ -24,7 +24,7 @@ export default function Home() {
           resizeMode="contain"
         ></Image>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Cadastro")}>
         <Image
           source={require("../../../assets/BtNaoTenhoConta.png")}
           style={{ width: 305, marginTop: 40 }}
