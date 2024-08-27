@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 
 export default function Cadastro() {
   const navigation = useNavigation();
@@ -37,7 +39,7 @@ export default function Cadastro() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <KeyboardAwareScrollView>
       <View style={styles.conteiner}>
         <View style={styles.footer}>
           <Text style={styles.txt_footer}>Cadastro</Text>
@@ -142,7 +144,7 @@ export default function Cadastro() {
           </View>
         </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+    </KeyboardAwareScrollView>
   );
 }
 

@@ -5,12 +5,11 @@ import {
   Image,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts, BreeSerif_400Regular } from "@expo-google-fonts/bree-serif";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -20,12 +19,12 @@ export default function Login() {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  if (!fontsLoaded) {
-    return null; // Pode adicionar um componente de carregamento aqui se necessário
-  }
+  if (!fontsLoaded) { 
+    return null; 
+  } 
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <KeyboardAwareScrollView>
       <View style={styles.conteiner}>
         <Image
           source={require("../../../assets/imgLogoHome.png")}
@@ -91,7 +90,7 @@ export default function Login() {
           <Text style={styles.txt_footer}>Login</Text>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#CAC1F9",
     width: "98%",
-    height: 160,
+    height: 230,
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     top: 100,
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     fontSize: 60,
     fontFamily: "BreeSerif_400Regular",
     color: "#FFFF",
-    bottom: 14,
+    bottom: 56  ,
     letterSpacing: 3
   },
 });
