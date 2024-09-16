@@ -4,6 +4,7 @@ import Home from "./src/Telas/Home/home";
 import Login from "./src/Telas/Login/login";
 import Cadastro from "./src/Telas/Cadastro/cadastro";
 import Main from "./src/Telas/Main/main";
+import Graph from "./teste";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ function MyStack() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
+        <Stack.Screen name="Graph" component={Graph} />
       </Stack.Navigator>
     </NavigationContainer>
   );
